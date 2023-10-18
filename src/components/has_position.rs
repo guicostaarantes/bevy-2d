@@ -1,4 +1,4 @@
-use bevy::{prelude::*, time::Stopwatch};
+use bevy::prelude::*;
 
 pub enum Direction {
     S,
@@ -20,21 +20,21 @@ impl Default for Direction {
 impl From<Vec2> for Direction {
     fn from(value: Vec2) -> Self {
         if value.x == 0.0 && value.y < 0.0 {
-            crate::movable::Direction::S
+            Direction::S
         } else if value.x > 0.0 && value.y < 0.0 {
-            crate::movable::Direction::SE
+            Direction::SE
         } else if value.x > 0.0 && value.y == 0.0 {
-            crate::movable::Direction::E
+            Direction::E
         } else if value.x > 0.0 && value.y > 0.0 {
-            crate::movable::Direction::NE
+            Direction::NE
         } else if value.x == 0.0 && value.y > 0.0 {
-            crate::movable::Direction::N
+            Direction::N
         } else if value.x < 0.0 && value.y > 0.0 {
-            crate::movable::Direction::NW
+            Direction::NW
         } else if value.x < 0.0 && value.y == 0.0 {
-            crate::movable::Direction::W
+            Direction::W
         } else {
-            crate::movable::Direction::SW
+            Direction::SW
         }
     }
 }
@@ -54,31 +54,21 @@ impl Direction {
     }
 }
 
-#[derive(Component, Default)]
-pub struct Movable {
-    pub walk_speed: f32,
-    pub current_speed: Vec2,
-    pub current_position: Vec2,
-    pub direction: Direction,
-    pub standing_texture_atlas: Handle<TextureAtlas>,
-    pub walking_texture_atlas: Handle<TextureAtlas>,
+impl Direction {
+    pub fn should_flip_x(&self) -> bool {
+        match &self {
+            Direction::NW => true,
+            Direction::W => true,
+            Direction::SW => true,
+            _ => false,
+        }
+    }
 }
 
 #[derive(Component, Default)]
-pub struct Animated {
-    pub timer_to_animate: Timer,
-    pub current_frame: usize,
-    pub number_of_frames: usize,
-}
-
-#[derive(Component, Default)]
-pub struct Jumpable {
-    pub jump_duration: f32,
-    pub jump_started: Option<Stopwatch>,
-}
-
-#[derive(Component, Default)]
-pub struct Controllable {
-    pub controlling: bool,
-    pub timer_to_control: Timer,
+pub struct HasPosition {
+    pub x: f32,
+    pub y: f32,
+    pub z: f32,
+    pub dir: Direction,
 }
