@@ -1,0 +1,3 @@
+mod animate_entities_that_are_able_to_animate;
+
+pub use animate_entities_that_are_able_to_animate::animate_entities_that_are_able_to_animate;

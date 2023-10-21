@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+#[derive(Reflect)]
 pub enum Direction {
     S,
     SE,
@@ -65,7 +66,8 @@ impl Direction {
     }
 }
 
-#[derive(Component, Default)]
+#[derive(Component, Default, Reflect)]
+#[reflect(Component)]
 pub struct HasPosition {
     pub x: f32,
     pub y: f32,
