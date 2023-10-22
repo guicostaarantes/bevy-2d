@@ -1,4 +1,3 @@
-use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
 use bevy::render::camera::ScalingMode;
 
@@ -12,32 +11,38 @@ pub fn initial_scene(
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
     // Camera
-    let mut camera = Camera2dBundle {
-        camera_2d: Camera2d {
-            clear_color: ClearColorConfig::Custom(Color::rgb(0.08, 0.35, 0.12)),
-        },
-        ..default()
-    };
+    let mut camera = Camera2dBundle::default();
     camera.projection.scaling_mode = ScalingMode::AutoMin {
         min_width: 360.0,
         min_height: 360.0,
     };
     commands.spawn(camera);
 
+    // Map
+    let map = (
+        Name::new("Map"),
+        SpriteBundle {
+            texture: asset_server.load("grass_map.png"),
+            transform: Transform::from_xyz(0.0, 0.0, -100.0),
+            ..default()
+        },
+    );
+    commands.spawn(map);
+
     // Main character
     let player = (
+        Name::new("Player"),
         HasPosition {
             x: 0.0,
             y: 0.0,
-            z: 0.0,
             ..default()
         },
         AbleToMove {
-            walk_speed: 100.0,
+            walk_speed: 120.0,
             ..default()
         },
         AbleToJump {
-            jump_duration: 0.35,
+            jump_duration: 0.4,
             jump_started: None,
         },
         AbleToControl {
@@ -60,27 +65,28 @@ pub fn initial_scene(
             None,
         ));
 
+        let walking_texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
+            asset_server.load("blue_dummy_walking.png"),
+            Vec2::new(32.0, 48.0),
+            40,
+            1,
+            None,
+            None,
+        ));
+
         let player_animated = (
             AbleToAnimate {
                 timer_to_animate: Timer::from_seconds(0.07, TimerMode::Repeating),
                 current_frame: 0,
                 number_of_frames: 8,
                 texture_atlas: standing_texture_atlas.clone(),
-                walking_texture_atlas: texture_atlases.add(TextureAtlas::from_grid(
-                    asset_server.load("blue_dummy_walking.png"),
-                    Vec2::new(32.0, 48.0),
-                    40,
-                    1,
-                    None,
-                    None,
-                )),
+                walking_texture_atlas: walking_texture_atlas.clone(),
             },
             SpriteSheetBundle {
                 texture_atlas: standing_texture_atlas,
                 ..default()
             },
         );
-
         child_builder.spawn(player_animated);
     });
 }

@@ -1,6 +1,7 @@
 mod plugins;
 mod scenes;
 
+use bevy::input::common_conditions::input_toggle_active;
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
@@ -23,7 +24,7 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
-        .add_plugins(WorldInspectorPlugin::new())
+        .add_plugins(WorldInspectorPlugin::new().run_if(input_toggle_active(false, KeyCode::Grave)))
         .add_plugins(MovementPlugin::new())
         .add_plugins(AnimationPlugin::new())
         .add_plugins(ControllingPlugin::new())
