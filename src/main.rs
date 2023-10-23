@@ -6,6 +6,7 @@ use bevy::prelude::*;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
 use crate::plugins::animation::AnimationPlugin;
+use crate::plugins::camera::CameraPlugin;
 use crate::plugins::controlling::ControllingPlugin;
 use crate::plugins::movement::MovementPlugin;
 
@@ -28,6 +29,7 @@ fn main() {
         .add_plugins(MovementPlugin::new())
         .add_plugins(AnimationPlugin::new())
         .add_plugins(ControllingPlugin::new())
+        .add_plugins(CameraPlugin::new())
         .add_systems(Startup, initial_scene)
         .run();
 }

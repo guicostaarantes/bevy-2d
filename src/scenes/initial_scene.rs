@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use bevy::render::camera::ScalingMode;
 
 use crate::plugins::animation::components::*;
+use crate::plugins::camera::components::*;
 use crate::plugins::controlling::components::*;
 use crate::plugins::movement::components::*;
 
@@ -12,9 +13,9 @@ pub fn initial_scene(
 ) {
     // Camera
     let mut camera = Camera2dBundle::default();
-    camera.projection.scaling_mode = ScalingMode::AutoMin {
-        min_width: 360.0,
-        min_height: 360.0,
+    camera.projection.scaling_mode = ScalingMode::AutoMax {
+        max_width: 640.0,
+        max_height: 640.0,
     };
     commands.spawn(camera);
 
@@ -52,6 +53,10 @@ pub fn initial_scene(
             key_left: KeyCode::A,
             key_right: KeyCode::D,
             key_jump: KeyCode::Space,
+        },
+        IsFollowedByCamera {
+            active: true,
+            damping: 15.0,
         },
         SpatialBundle::default(),
     );
