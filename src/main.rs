@@ -10,7 +10,8 @@ use crate::plugins::camera::CameraPlugin;
 use crate::plugins::controlling::ControllingPlugin;
 use crate::plugins::movement::MovementPlugin;
 
-use crate::scenes::initial_scene;
+use crate::scenes::scene_1;
+use crate::scenes::AppState;
 
 fn main() {
     App::new()
@@ -25,11 +26,12 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
+        .add_state::<AppState>()
         .add_plugins(WorldInspectorPlugin::new().run_if(input_toggle_active(false, KeyCode::Grave)))
         .add_plugins(MovementPlugin::new())
         .add_plugins(AnimationPlugin::new())
         .add_plugins(ControllingPlugin::new())
         .add_plugins(CameraPlugin::new())
-        .add_systems(Startup, initial_scene)
+        .add_systems(OnEnter(AppState::LoadingEntitiesScene1), scene_1)
         .run();
 }

@@ -5,11 +5,13 @@ use crate::plugins::animation::components::*;
 use crate::plugins::camera::components::*;
 use crate::plugins::controlling::components::*;
 use crate::plugins::movement::components::*;
+use crate::scenes::AppState;
 
-pub fn initial_scene(
+pub fn scene_1(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+    mut change_state: ResMut<NextState<AppState>>,
 ) {
     // Camera
     let mut camera = Camera2dBundle::default();
@@ -20,22 +22,41 @@ pub fn initial_scene(
     commands.spawn(camera);
 
     // Map
-    let map = (
-        Name::new("Map"),
-        SpriteBundle {
-            texture: asset_server.load("grass_map.png"),
-            transform: Transform::from_xyz(0.0, 0.0, -100.0),
+    let map = (Name::new("Map"), SpatialBundle { ..default() });
+    commands.spawn(map).with_children(|child_builder| {
+        child_builder.spawn(SpriteBundle {
+            texture: asset_server.load("scene1_z000.png"),
+            transform: Transform {
+                translation: Vec3 {
+                    x: 0.0,
+                    y: 0.0,
+                    z: 0.0,
+                },
+                ..default()
+            },
             ..default()
-        },
-    );
-    commands.spawn(map);
+        });
+        child_builder.spawn(SpriteBundle {
+            texture: asset_server.load("scene1_z010.png"),
+            transform: Transform {
+                translation: Vec3 {
+                    x: 0.0,
+                    y: 0.0,
+                    z: 10.0,
+                },
+                ..default()
+            },
+            ..default()
+        });
+    });
 
     // Main character
     let player = (
         Name::new("Player"),
         HasPosition {
             x: 0.0,
-            y: 0.0,
+            y: -60.0,
+            z: 0.0,
             ..default()
         },
         AbleToMove {
@@ -58,7 +79,17 @@ pub fn initial_scene(
             active: true,
             damping: 15.0,
         },
-        SpatialBundle::default(),
+        SpatialBundle {
+            transform: Transform {
+                translation: Vec3 {
+                    x: 0.0,
+                    y: 0.0,
+                    z: 1.0,
+                },
+                ..default()
+            },
+            ..default()
+        },
     );
     commands.spawn(player).with_children(|child_builder| {
         let standing_texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
@@ -94,4 +125,6 @@ pub fn initial_scene(
         );
         child_builder.spawn(player_animated);
     });
+
+    change_state.set(AppState::PlayingScene1);
 }
