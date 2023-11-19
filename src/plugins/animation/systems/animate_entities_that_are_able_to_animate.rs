@@ -4,7 +4,7 @@ use crate::plugins::animation::components::*;
 use crate::plugins::movement::components::*;
 
 pub fn animate_entities_that_are_able_to_animate(
-    movables: Query<(&HasPosition, Option<&AbleToMove>)>,
+    movables: Query<(&Children, &HasPosition, Option<&AbleToMove>)>,
     mut sprites: Query<(
         &mut AbleToAnimate,
         &mut Handle<TextureAtlas>,
@@ -12,10 +12,9 @@ pub fn animate_entities_that_are_able_to_animate(
     )>,
     time: Res<Time>,
 ) {
-    movables.iter().for_each(|(position, movable)| {
-        sprites
-            .iter_mut()
-            .for_each(|(mut animated, mut atlas_handle, mut sprite)| {
+    movables.iter().for_each(|(children, position, movable)| {
+        children.iter().for_each(|child| {
+            if let Ok((mut animated, mut atlas_handle, mut sprite)) = sprites.get_mut(*child) {
                 animated.timer_to_animate.tick(time.delta());
                 if !animated.timer_to_animate.just_finished() {
                     return;
@@ -39,6 +38,7 @@ pub fn animate_entities_that_are_able_to_animate(
                         *atlas_handle = animated.texture_atlas.clone()
                     }
                 }
-            });
+            }
+        });
     });
 }
