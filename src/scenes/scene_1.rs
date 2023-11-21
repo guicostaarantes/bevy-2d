@@ -3,6 +3,7 @@ use bevy::render::camera::ScalingMode;
 
 use crate::plugins::animation::components::*;
 use crate::plugins::camera::components::*;
+use crate::plugins::collision::components::*;
 use crate::plugins::controlling::components::*;
 use crate::plugins::movement::components::*;
 use crate::scenes::AppState;
@@ -78,6 +79,21 @@ pub fn scene_1(
         IsFollowedByCamera {
             active: true,
             damping: 15.,
+        },
+        AbleToCollide {
+            cuboids: vec![Cuboid {
+                displacement: Vec3 {
+                    x: 0.,
+                    y: 0.,
+                    z: -6.,
+                },
+                size: Vec3 {
+                    x: 18.,
+                    y: 18.,
+                    z: 32.,
+                },
+            }],
+            show_collision_boxes: true,
         },
         SpatialBundle {
             transform: Transform {
