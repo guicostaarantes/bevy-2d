@@ -16,8 +16,8 @@ pub fn scene_1(
     // Camera
     let mut camera = Camera2dBundle::default();
     camera.projection.scaling_mode = ScalingMode::AutoMax {
-        max_width: 640.0,
-        max_height: 640.0,
+        max_width: 640.,
+        max_height: 640.,
     };
     commands.spawn(camera);
 
@@ -28,9 +28,9 @@ pub fn scene_1(
             texture: asset_server.load("scene1_z000.png"),
             transform: Transform {
                 translation: Vec3 {
-                    x: 0.0,
-                    y: 0.0,
-                    z: 0.0,
+                    x: 0.,
+                    y: 0.,
+                    z: 0.,
                 },
                 ..default()
             },
@@ -40,9 +40,9 @@ pub fn scene_1(
             texture: asset_server.load("scene1_z010.png"),
             transform: Transform {
                 translation: Vec3 {
-                    x: 0.0,
-                    y: 0.0,
-                    z: 10.0,
+                    x: 0.,
+                    y: 0.,
+                    z: 10.,
                 },
                 ..default()
             },
@@ -54,13 +54,13 @@ pub fn scene_1(
     let player = (
         Name::new("Player"),
         HasPosition {
-            x: 0.0,
-            y: -60.0,
-            z: 0.0,
+            x: 0.,
+            y: -60.,
+            z: 0.,
             ..default()
         },
         AbleToMove {
-            walk_speed: 120.0,
+            walk_speed: 120.,
             ..default()
         },
         AbleToJump {
@@ -77,14 +77,14 @@ pub fn scene_1(
         },
         IsFollowedByCamera {
             active: true,
-            damping: 15.0,
+            damping: 15.,
         },
         SpatialBundle {
             transform: Transform {
                 translation: Vec3 {
-                    x: 0.0,
-                    y: 0.0,
-                    z: 1.0,
+                    x: 0.,
+                    y: 0.,
+                    z: 1.,
                 },
                 ..default()
             },
@@ -94,7 +94,7 @@ pub fn scene_1(
     commands.spawn(player).with_children(|child_builder| {
         let standing_texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
             asset_server.load("blue_dummy_standing.png"),
-            Vec2::new(32.0, 48.0),
+            Vec2::new(32., 48.),
             40,
             1,
             None,
@@ -103,7 +103,7 @@ pub fn scene_1(
 
         let walking_texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
             asset_server.load("blue_dummy_walking.png"),
-            Vec2::new(32.0, 48.0),
+            Vec2::new(32., 48.),
             40,
             1,
             None,

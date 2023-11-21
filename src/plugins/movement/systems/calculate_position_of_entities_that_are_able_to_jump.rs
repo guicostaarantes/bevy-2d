@@ -12,10 +12,10 @@ pub fn calculate_position_of_entities_that_are_able_to_jump(
             Some(sw) => {
                 sw.tick(time.delta());
                 let elapsed = sw.elapsed_secs();
-                let jump_current_height = 1000.0 * elapsed * (jumpable.jump_duration - elapsed);
-                if jump_current_height < 0.0 {
+                let jump_current_height = 1000. * elapsed * (jumpable.jump_duration - elapsed);
+                if jump_current_height < 0. {
                     jumpable.jump_started = None;
-                    pos.z = 0.0;
+                    pos.z = 0.;
                 } else {
                     pos.z = jump_current_height;
                 }

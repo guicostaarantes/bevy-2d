@@ -17,9 +17,9 @@ pub fn follow_entity_that_is_followed_by_camera(
                 || (cam.translation.y - pos.y).abs() > CAMERA_POSITION_THRESHOLD
             {
                 cam.translation.x =
-                    (followable.damping * cam.translation.x + pos.x) / (followable.damping + 1.0);
+                    (followable.damping * cam.translation.x + pos.x) / (followable.damping + 1.);
                 cam.translation.y =
-                    (followable.damping * cam.translation.y + pos.y) / (followable.damping + 1.0);
+                    (followable.damping * cam.translation.y + pos.y) / (followable.damping + 1.);
             }
         }
     })

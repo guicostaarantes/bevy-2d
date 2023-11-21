@@ -30,10 +30,10 @@ pub fn animate_entities_that_are_able_to_animate(
                 sprite.flip_x = position.dir.should_flip_x();
 
                 if let Some(mov) = movable {
-                    if *atlas_handle == animated.texture_atlas && mov.current_speed.length() > 0.0 {
+                    if *atlas_handle == animated.texture_atlas && mov.current_speed.length() > 0. {
                         *atlas_handle = animated.walking_texture_atlas.clone()
                     } else if *atlas_handle == animated.walking_texture_atlas
-                        && mov.current_speed.length() == 0.0
+                        && mov.current_speed.length() == 0.
                     {
                         *atlas_handle = animated.texture_atlas.clone()
                     }

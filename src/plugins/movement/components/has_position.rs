@@ -20,19 +20,19 @@ impl Default for Direction {
 
 impl From<Vec2> for Direction {
     fn from(value: Vec2) -> Self {
-        if value.x == 0.0 && value.y < 0.0 {
+        if value.x == 0. && value.y < 0. {
             Direction::S
-        } else if value.x > 0.0 && value.y < 0.0 {
+        } else if value.x > 0. && value.y < 0. {
             Direction::SE
-        } else if value.x > 0.0 && value.y == 0.0 {
+        } else if value.x > 0. && value.y == 0. {
             Direction::E
-        } else if value.x > 0.0 && value.y > 0.0 {
+        } else if value.x > 0. && value.y > 0. {
             Direction::NE
-        } else if value.x == 0.0 && value.y > 0.0 {
+        } else if value.x == 0. && value.y > 0. {
             Direction::N
-        } else if value.x < 0.0 && value.y > 0.0 {
+        } else if value.x < 0. && value.y > 0. {
             Direction::NW
-        } else if value.x < 0.0 && value.y == 0.0 {
+        } else if value.x < 0. && value.y == 0. {
             Direction::W
         } else {
             Direction::SW
