@@ -1,3 +1,5 @@
+mod collide_entities_when_one_is_able_to_move;
 mod draw_collision_boxes;
 
+pub use collide_entities_when_one_is_able_to_move::collide_entities_when_one_is_able_to_move;
 pub use draw_collision_boxes::draw_collision_boxes;

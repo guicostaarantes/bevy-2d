@@ -25,30 +25,121 @@ pub fn scene_1(
     // Map
     let map = (Name::new("Map"), SpatialBundle { ..default() });
     commands.spawn(map).with_children(|child_builder| {
-        child_builder.spawn(SpriteBundle {
-            texture: asset_server.load("scene1_z000.png"),
-            transform: Transform {
-                translation: Vec3 {
-                    x: 0.,
-                    y: 0.,
-                    z: 0.,
+        child_builder.spawn((
+            Name::new("Floor"),
+            SpriteBundle {
+                texture: asset_server.load("scene1_z000.png"),
+                transform: Transform { ..default() },
+                ..default()
+            },
+            HasPosition {
+                x: 0.,
+                y: 0.,
+                z: 0.,
+                ..default()
+            },
+            IsRigidBody {
+                cuboids: vec![Cuboid {
+                    size: Vec3 {
+                        x: 960.,
+                        y: 960.,
+                        z: 0.,
+                    },
+                    displacement: Vec3 {
+                        x: 0.,
+                        y: 0.,
+                        z: 0.,
+                    },
+                }],
+                show_collision_boxes: false,
+            },
+        ));
+        child_builder.spawn((
+            Name::new("Bridge"),
+            SpriteBundle {
+                texture: asset_server.load("scene1_z010.png"),
+                transform: Transform {
+                    translation: Vec3 {
+                        x: 0.,
+                        y: 0.,
+                        z: 10.,
+                    },
+                    ..default()
                 },
                 ..default()
             },
-            ..default()
-        });
-        child_builder.spawn(SpriteBundle {
-            texture: asset_server.load("scene1_z010.png"),
-            transform: Transform {
-                translation: Vec3 {
-                    x: 0.,
-                    y: 0.,
-                    z: 10.,
-                },
+            HasPosition {
+                x: 0.,
+                y: 0.,
+                z: 0.,
                 ..default()
             },
-            ..default()
-        });
+            IsRigidBody {
+                cuboids: vec![
+                    /* Cuboid {
+                        size: Vec3 {
+                            x: 208.,
+                            y: 100.,
+                            z: 60.,
+                        },
+                        displacement: Vec3 {
+                            x: -183.,
+                            y: 50.,
+                            z: 30.,
+                        },
+                    },
+                    Cuboid {
+                        size: Vec3 {
+                            x: 30.,
+                            y: 100.,
+                            z: 20.,
+                        },
+                        displacement: Vec3 {
+                            x: -64.,
+                            y: 50.,
+                            z: 50.,
+                        },
+                    },
+                    Cuboid {
+                        size: Vec3 {
+                            x: 98.,
+                            y: 100.,
+                            z: 60.,
+                        },
+                        displacement: Vec3 {
+                            x: 0.,
+                            y: 50.,
+                            z: 30.,
+                        },
+                    },
+                    Cuboid {
+                        size: Vec3 {
+                            x: 30.,
+                            y: 100.,
+                            z: 20.,
+                        },
+                        displacement: Vec3 {
+                            x: 64.,
+                            y: 50.,
+                            z: 50.,
+                        },
+                    },
+                    Cuboid {
+                        size: Vec3 {
+                            x: 208.,
+                            y: 100.,
+                            z: 60.,
+                        },
+                        displacement: Vec3 {
+                            x: 183.,
+                            y: 50.,
+                            z: 30.,
+                        },
+                    }, */
+                ],
+                show_collision_boxes: true,
+            },
+        ));
     });
 
     // Main character
@@ -57,7 +148,7 @@ pub fn scene_1(
         HasPosition {
             x: 0.,
             y: -60.,
-            z: 0.,
+            z: 18.,
             ..default()
         },
         AbleToMove {
@@ -80,20 +171,20 @@ pub fn scene_1(
             active: true,
             damping: 15.,
         },
-        AbleToCollide {
+        IsRigidBody {
             cuboids: vec![Cuboid {
                 displacement: Vec3 {
                     x: 0.,
                     y: 0.,
-                    z: -6.,
+                    z: 0.,
                 },
                 size: Vec3 {
                     x: 18.,
                     y: 18.,
-                    z: 32.,
+                    z: 36.,
                 },
             }],
-            show_collision_boxes: true,
+            show_collision_boxes: false,
         },
         SpatialBundle {
             transform: Transform {

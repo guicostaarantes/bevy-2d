@@ -11,7 +11,7 @@ pub struct IsVisibleCollisionBox;
 
 #[derive(Component, Default, Reflect)]
 #[reflect(Component)]
-pub struct AbleToCollide {
+pub struct IsRigidBody {
     pub cuboids: Vec<Cuboid>,
     pub show_collision_boxes: bool,
 }

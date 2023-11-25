@@ -1,5 +1,5 @@
-mod able_to_collide;
+mod is_rigid_body;
 
-pub use able_to_collide::AbleToCollide;
-pub use able_to_collide::Cuboid;
-pub use able_to_collide::IsVisibleCollisionBox;
+pub use is_rigid_body::IsRigidBody;
+pub use is_rigid_body::Cuboid;
+pub use is_rigid_body::IsVisibleCollisionBox;

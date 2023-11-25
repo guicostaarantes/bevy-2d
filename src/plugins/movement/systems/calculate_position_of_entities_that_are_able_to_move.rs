@@ -7,7 +7,11 @@ pub fn calculate_position_of_entities_that_are_able_to_move(
     time: Res<Time>,
 ) {
     movables.iter_mut().for_each(|(mut pos, movable)| {
-        pos.x += movable.current_speed.x * time.delta_seconds();
-        pos.y += movable.current_speed.y * time.delta_seconds();
+        if movable.current_speed.x != 0. {
+            pos.x += movable.current_speed.x * time.delta_seconds();
+        }
+        if movable.current_speed.y != 0. {
+            pos.y += movable.current_speed.y * time.delta_seconds();
+        }
     });
 }
