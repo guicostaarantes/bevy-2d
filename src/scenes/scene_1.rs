@@ -76,7 +76,7 @@ pub fn scene_1(
             },
             IsRigidBody {
                 cuboids: vec![
-                    /* Cuboid {
+                    Cuboid {
                         size: Vec3 {
                             x: 208.,
                             y: 100.,
@@ -135,9 +135,9 @@ pub fn scene_1(
                             y: 50.,
                             z: 30.,
                         },
-                    }, */
+                    },
                 ],
-                show_collision_boxes: true,
+                show_collision_boxes: false,
             },
         ));
     });
