@@ -7,7 +7,6 @@ use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
 use crate::plugins::animation::AnimationPlugin;
 use crate::plugins::camera::CameraPlugin;
-use crate::plugins::collision::CollisionPlugin;
 use crate::plugins::controlling::ControllingPlugin;
 use crate::plugins::movement::MovementPlugin;
 
@@ -33,7 +32,6 @@ fn main() {
         .add_plugins(AnimationPlugin::new())
         .add_plugins(ControllingPlugin::new())
         .add_plugins(CameraPlugin::new())
-        .add_plugins(CollisionPlugin::new())
         .add_systems(OnEnter(AppState::LoadingEntitiesScene1), scene_1)
         .run();
 }

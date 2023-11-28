@@ -1,7 +1,6 @@
 use bevy::prelude::*;
 
-use crate::plugins::collision::components::*;
-use crate::plugins::movement::components::HasPosition;
+use crate::plugins::movement::components::*;
 
 pub fn draw_collision_boxes(
     mut commands: Commands,

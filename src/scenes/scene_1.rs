@@ -3,7 +3,6 @@ use bevy::render::camera::ScalingMode;
 
 use crate::plugins::animation::components::*;
 use crate::plugins::camera::components::*;
-use crate::plugins::collision::components::*;
 use crate::plugins::controlling::components::*;
 use crate::plugins::movement::components::*;
 use crate::scenes::AppState;

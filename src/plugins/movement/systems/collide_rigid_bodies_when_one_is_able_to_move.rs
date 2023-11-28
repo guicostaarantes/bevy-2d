@@ -1,10 +1,8 @@
 use bevy::prelude::*;
 
-use crate::plugins::collision::components::*;
-use crate::plugins::movement::components::AbleToMove;
-use crate::plugins::movement::components::HasPosition;
+use crate::plugins::movement::components::*;
 
-const BOUNCE_MULTIPLIER: f32 = 1.5;
+const BOUNCE_MULTIPLIER: f32 = 1.45;
 
 pub fn collide_rigid_bodies_when_one_is_able_to_move(
     // mut commands: Commands,
