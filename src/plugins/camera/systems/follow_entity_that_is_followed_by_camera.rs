@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use crate::plugins::camera::components::*;
 use crate::plugins::movement::components::*;
 
-const CAMERA_POSITION_THRESHOLD: f32 = 1.;
+const CAMERA_POSITION_THRESHOLD: f32 = 0.5;
 
 pub fn follow_entity_that_is_followed_by_camera(
     mut camera: Query<&mut Transform, With<OrthographicProjection>>,
@@ -20,6 +20,9 @@ pub fn follow_entity_that_is_followed_by_camera(
                     (followable.damping * cam.translation.x + pos.x) / (followable.damping + 1.);
                 cam.translation.y =
                     (followable.damping * cam.translation.y + pos.y) / (followable.damping + 1.);
+            } else {
+                cam.translation.x = pos.x;
+                cam.translation.y = pos.y;
             }
         }
     })
