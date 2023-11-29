@@ -2,10 +2,9 @@ use bevy::prelude::*;
 
 use crate::plugins::movement::components::*;
 
-const BOUNCE_MULTIPLIER: f32 = 1.45;
+const BOUNCE_MULTIPLIER: f32 = 1.33;
 
 pub fn collide_rigid_bodies_when_one_is_able_to_move(
-    // mut commands: Commands,
     mut movable_colliders: Query<(&IsRigidBody, &mut HasPosition, &mut AbleToMove), Changed<HasPosition>>,
     immovable_colliders: Query<(&IsRigidBody, &HasPosition), Without<AbleToMove>>,
     time: Res<Time>,
@@ -49,17 +48,17 @@ pub fn collide_rigid_bodies_when_one_is_able_to_move(
                     if diff_above < 0. { return; }
 
                     if hit_from_west {
-                        movable.current_speed.x = 0.;
+                        movable.current_speed.x = 0.1;
                         position.x += BOUNCE_MULTIPLIER * diff_west;
                     } else if hit_from_east {
-                        movable.current_speed.x = 0.;
+                        movable.current_speed.x = 0.1;
                         position.x -= BOUNCE_MULTIPLIER * diff_east;
                     }
                     if hit_from_south {
-                        movable.current_speed.y = 0.;
+                        movable.current_speed.y = 0.1;
                         position.y += BOUNCE_MULTIPLIER * diff_south;
                     } else if hit_from_north {
-                        movable.current_speed.y = 0.;
+                        movable.current_speed.y = 0.1;
                         position.y -= BOUNCE_MULTIPLIER * diff_north;
                     }
                 });

@@ -10,7 +10,6 @@ use self::components::Direction;
 use self::components::HasPosition;
 use self::components::IsRigidBody;
 use self::components::IsVisibleCollisionBox;
-use self::systems::calculate_position_of_entities_that_are_able_to_jump;
 use self::systems::calculate_position_of_entities_that_are_able_to_move;
 use self::systems::collide_rigid_bodies_when_one_is_able_to_move;
 use self::systems::draw_collision_boxes;
@@ -20,12 +19,11 @@ pub struct MovementPlugin;
 
 impl Plugin for MovementPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, calculate_position_of_entities_that_are_able_to_jump)
-            .add_systems(Update, calculate_position_of_entities_that_are_able_to_move)
+        app.add_systems(Update, calculate_position_of_entities_that_are_able_to_move)
             .add_systems(
                 Update,
                 collide_rigid_bodies_when_one_is_able_to_move
-                    .after(translate_entities_that_have_position),
+                    .after(calculate_position_of_entities_that_are_able_to_move),
             )
             .add_systems(Update, translate_entities_that_have_position)
             .add_systems(Update, draw_collision_boxes)
